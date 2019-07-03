@@ -23,5 +23,13 @@ namespace GradeBook.Tests
             Assert.Equal(90.5, result.High, 1);
 
         }
+
+        // public void BookCannotAddGradeOf100OrMore()
+        // {
+        //     var book = new Book("");
+        //     book.AddGrade(105);
+
+        //     Assert.Equal(book)
+        // }
     }
 }

@@ -25,6 +25,20 @@ namespace GradeBook.Tests
         }
 
         [Fact]
+        public void StringsBehaveLikeValueTypes()
+        {
+            string name = "Adam";
+            var upper = MakeUpperCase(name);
+            Assert.Equal("Adam", name);
+            Assert.Equal("ADAM", upper);
+        }
+
+        private string MakeUpperCase(string parameter)
+        {
+            return parameter.ToUpper();
+        }
+
+        [Fact]
         public void CSharpCanPassByReference()
         {
             // arrange
