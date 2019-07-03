@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
     public class Book
     {
         public Book(string name)
@@ -11,7 +13,7 @@ namespace GradeBook
             Name = name;
         }
 
-        public void AddLetterGrade(char letter)
+        public void AddGrade(char letter)
         {
             switch(letter)
             {
@@ -40,12 +42,18 @@ namespace GradeBook
             if (grade >= 0 && grade <= 100) 
             {
                 grades.Add(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else 
             {
-                Console.WriteLine($"Invalid grade of {grade}");
+                throw new ArgumentException($"Invalid {nameof(grade)}");
             }
         }
+
+        public event GradeAddedDelegate GradeAdded;
 
         public Statistics GetStatistics()
         {
@@ -67,6 +75,18 @@ namespace GradeBook
                 case var d when d >= 90.0:
                     result.Letter = 'A';
                     break;
+                case var d when d >= 80.0:
+                    result.Letter = 'B';
+                    break;
+                case var d when d >= 70.0:
+                    result.Letter = 'C';
+                    break;
+                case var d when d >= 60.0:
+                    result.Letter = 'D';
+                    break;
+                default:
+                    result.Letter = 'F';
+                    break;
 
             }
 
@@ -74,6 +94,9 @@ namespace GradeBook
         }
 
         private List<double> grades;
-        public string Name;
+        
+        public string Name { get; set; }
+
+        public const string category = "SCIENCE";
     }
 }
