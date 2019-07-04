@@ -6,7 +6,7 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            var book = new InMemoryBook("Adam's Grade Book");
+            IBook book = new DiskBook("Adam's Grade Book");
 
             book.GradeAdded += OnGradeAdded;
             EnterGrades(book);
@@ -19,7 +19,7 @@ namespace GradeBook
             Console.WriteLine($"The letter grade is {stats.Letter}");
         }
 
-        private static void EnterGrades(InMemoryBook book)
+        private static void EnterGrades(IBook book)
         {
             while (true)
             {
@@ -41,10 +41,6 @@ namespace GradeBook
                 catch (FormatException ex)
                 {
                     Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-
                 }
             }
         }
